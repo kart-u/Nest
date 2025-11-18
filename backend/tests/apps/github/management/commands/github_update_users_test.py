@@ -30,11 +30,15 @@ class TestGithubUpdateUsersCommand:
             "--offset", default=0, required=False, type=int
         )
 
+    @patch("apps.github.management.commands.github_update_users.MemberProfile")
     @patch("apps.github.management.commands.github_update_users.User")
     @patch("apps.github.management.commands.github_update_users.RepositoryContributor")
     @patch("apps.github.management.commands.github_update_users.BATCH_SIZE", 2)
-    def test_handle_with_default_offset(self, mock_repository_contributor, mock_user):
+    def test_handle_with_default_offset(
+        self, mock_repository_contributor, mock_user, mock_member_profile
+    ):
         """Test command execution with default offset."""
+        mock_member_profile.objects.get_or_create.return_value = (MagicMock(), False)
         mock_user1 = MagicMock(id=1, title="User 1", contributions_count=0)
         mock_user2 = MagicMock(id=2, title="User 2", contributions_count=0)
         mock_user3 = MagicMock(id=3, title="User 3", contributions_count=0)
@@ -76,11 +80,15 @@ class TestGithubUpdateUsersCommand:
         assert mock_user.bulk_save.call_count == 2
         assert mock_user.bulk_save.call_args_list[-1][0][0] == [mock_user1, mock_user2, mock_user3]
 
+    @patch("apps.github.management.commands.github_update_users.MemberProfile")
     @patch("apps.github.management.commands.github_update_users.User")
     @patch("apps.github.management.commands.github_update_users.RepositoryContributor")
     @patch("apps.github.management.commands.github_update_users.BATCH_SIZE", 2)
-    def test_handle_with_custom_offset(self, mock_repository_contributor, mock_user):
+    def test_handle_with_custom_offset(
+        self, mock_repository_contributor, mock_user, mock_member_profile
+    ):
         """Test command execution with custom offset."""
+        mock_member_profile.objects.get_or_create.return_value = (MagicMock(), False)
         mock_user1 = MagicMock(id=2, title="User 2", contributions_count=0)
         mock_user2 = MagicMock(id=3, title="User 3", contributions_count=0)
 
@@ -115,13 +123,15 @@ class TestGithubUpdateUsersCommand:
         assert mock_user.bulk_save.call_count == 2
         assert mock_user.bulk_save.call_args_list[-1][0][0] == [mock_user1, mock_user2]
 
+    @patch("apps.github.management.commands.github_update_users.MemberProfile")
     @patch("apps.github.management.commands.github_update_users.User")
     @patch("apps.github.management.commands.github_update_users.RepositoryContributor")
     @patch("apps.github.management.commands.github_update_users.BATCH_SIZE", 3)
     def test_handle_with_users_having_no_contributions(
-        self, mock_repository_contributor, mock_user
+        self, mock_repository_contributor, mock_user, mock_member_profile
     ):
         """Test command execution when users have no contributions."""
+        mock_member_profile.objects.get_or_create.return_value = (MagicMock(), False)
         mock_user1 = MagicMock(id=1, title="User 1", contributions_count=0)
         mock_user2 = MagicMock(id=2, title="User 2", contributions_count=0)
 
@@ -149,11 +159,15 @@ class TestGithubUpdateUsersCommand:
         assert mock_user.bulk_save.call_count == 1
         assert mock_user.bulk_save.call_args_list[-1][0][0] == [mock_user1, mock_user2]
 
+    @patch("apps.github.management.commands.github_update_users.MemberProfile")
     @patch("apps.github.management.commands.github_update_users.User")
     @patch("apps.github.management.commands.github_update_users.RepositoryContributor")
     @patch("apps.github.management.commands.github_update_users.BATCH_SIZE", 1)
-    def test_handle_with_single_user(self, mock_repository_contributor, mock_user):
+    def test_handle_with_single_user(
+        self, mock_repository_contributor, mock_user, mock_member_profile
+    ):
         """Test command execution with single user."""
+        mock_member_profile.objects.get_or_create.return_value = (MagicMock(), False)
         mock_user1 = MagicMock(id=1, title="User 1", contributions_count=0)
 
         mock_users_queryset = MagicMock()
@@ -179,11 +193,15 @@ class TestGithubUpdateUsersCommand:
         assert mock_user.bulk_save.call_count == 2
         assert mock_user.bulk_save.call_args_list[-1][0][0] == [mock_user1]
 
+    @patch("apps.github.management.commands.github_update_users.MemberProfile")
     @patch("apps.github.management.commands.github_update_users.User")
     @patch("apps.github.management.commands.github_update_users.RepositoryContributor")
     @patch("apps.github.management.commands.github_update_users.BATCH_SIZE", 2)
-    def test_handle_with_empty_user_list(self, mock_repository_contributor, mock_user):
+    def test_handle_with_empty_user_list(
+        self, mock_repository_contributor, mock_user, mock_member_profile
+    ):
         """Test command execution with no users."""
+        mock_member_profile.objects.get_or_create.return_value = (MagicMock(), False)
         mock_users_queryset = MagicMock()
         mock_users_queryset.count.return_value = 0
         mock_users_queryset.__getitem__.return_value = []
@@ -203,11 +221,15 @@ class TestGithubUpdateUsersCommand:
         assert mock_user.bulk_save.call_count == 1
         assert mock_user.bulk_save.call_args_list[-1][0][0] == []
 
+    @patch("apps.github.management.commands.github_update_users.MemberProfile")
     @patch("apps.github.management.commands.github_update_users.User")
     @patch("apps.github.management.commands.github_update_users.RepositoryContributor")
     @patch("apps.github.management.commands.github_update_users.BATCH_SIZE", 2)
-    def test_handle_with_exact_batch_size(self, mock_repository_contributor, mock_user):
+    def test_handle_with_exact_batch_size(
+        self, mock_repository_contributor, mock_user, mock_member_profile
+    ):
         """Test command execution when user count equals batch size."""
+        mock_member_profile.objects.get_or_create.return_value = (MagicMock(), False)
         mock_user1 = MagicMock(id=1, title="User 1", contributions_count=0)
         mock_user2 = MagicMock(id=2, title="User 2", contributions_count=0)
 
