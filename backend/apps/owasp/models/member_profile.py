@@ -71,7 +71,11 @@ class MemberProfile(TimestampedModel):
         help_text="LinkedIn username or custom URL ID (e.g., 'john-doe-123')",
     )
 
-    has_public_member_page = models.BooleanField(default=True)
+    has_public_member_page = models.BooleanField(
+        default=True,
+        verbose_name="Has Public Member Page",
+        help_text="Whether the member's profile is publicly visible on the OWASP website",
+    )
     is_owasp_staff = models.BooleanField(
         default=False,
         verbose_name="Is OWASP Staff",

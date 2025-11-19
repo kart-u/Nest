@@ -220,6 +220,8 @@ class TestGithubUpdateUsersCommand:
 
         assert mock_user.bulk_save.call_count == 1
         assert mock_user.bulk_save.call_args_list[-1][0][0] == []
+        assert mock_member_profile.bulk_save.call_count == 1
+        assert mock_member_profile.bulk_save.call_args_list[-1][0][0] == []
 
     @patch("apps.github.management.commands.github_update_users.MemberProfile")
     @patch("apps.github.management.commands.github_update_users.User")
