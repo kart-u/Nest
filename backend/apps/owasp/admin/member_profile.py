@@ -50,7 +50,14 @@ class MemberProfileAdmin(admin.ModelAdmin):
         ),
         (
             "Contribution Information",
-            {"fields": ("first_contribution_at",)},
+            {
+                "fields": (
+                    "first_contribution_at",
+                    "is_owasp_staff",
+                    "has_public_member_page",
+                    "contributions_count",
+                )
+            },
         ),
         (
             "Membership Flags",

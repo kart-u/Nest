@@ -80,7 +80,6 @@ class MemberProfile(TimestampedModel):
     contributions_count = models.PositiveIntegerField(
         verbose_name="Contributions count", default=0
     )
-    
 
     def __str__(self) -> str:
         """Return human-readable representation."""
@@ -90,4 +89,3 @@ class MemberProfile(TimestampedModel):
     def bulk_save(profiles, fields=None) -> None:
         """Bulk save member profiles."""
         BulkSaveModel.bulk_save(MemberProfile, profiles, fields=fields)
-

@@ -4,25 +4,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('owasp', '0065_memberprofile_linkedin_page_id'),
+        ("owasp", "0065_memberprofile_linkedin_page_id"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='memberprofile',
-            name='contributions_count',
-            field=models.PositiveIntegerField(default=0, verbose_name='Contributions count'),
+            model_name="memberprofile",
+            name="contributions_count",
+            field=models.PositiveIntegerField(default=0, verbose_name="Contributions count"),
         ),
         migrations.AddField(
-            model_name='memberprofile',
-            name='has_public_member_page',
+            model_name="memberprofile",
+            name="has_public_member_page",
             field=models.BooleanField(default=True),
         ),
         migrations.AddField(
-            model_name='memberprofile',
-            name='is_owasp_staff',
-            field=models.BooleanField(default=False, help_text='Indicates if the user is OWASP Foundation staff.', verbose_name='Is OWASP Staff'),
+            model_name="memberprofile",
+            name="is_owasp_staff",
+            field=models.BooleanField(
+                default=False,
+                help_text="Indicates if the user is OWASP Foundation staff.",
+                verbose_name="Is OWASP Staff",
+            ),
         ),
     ]
