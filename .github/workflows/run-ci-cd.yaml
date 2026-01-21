@@ -202,7 +202,7 @@ jobs:
           name: semgrep-html
           path: semgrep-report.html
     timeout-minutes: 10
-# 
+
   # run-backend-tests:
   #   name: Run backend tests
   #   needs:
