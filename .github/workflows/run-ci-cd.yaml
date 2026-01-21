@@ -191,16 +191,16 @@ jobs:
       - name: Run Semgrep scan
         run: |
           semgrep scan \
-            --config p/security-audit \
-            --fail-level MEDIUM \
-            --timeout 300 \
-            --html --output semgrep-report.html
+          --config p/security-audit \
+          --sarif \
+          --sarif-output semgrep-report.sarif \
+          --timeout 300
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:
-          name: semgrep-html
-          path: semgrep-report.html
+          name: semgrep-report
+          path: semgrep-report.sarif
     timeout-minutes: 10
 
   # run-backend-tests:
