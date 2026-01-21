@@ -27,6 +27,7 @@ PYTHONUNBUFFERED
 RUF
 SEO
 SLF
+Semgrep
 Sivagangai
 Sonarqube
 Stegen
@@ -146,6 +147,7 @@ saft
 sakanashi
 samm
 schemathesis
+semgrep
 seo
 skillstruck
 slackbot
