@@ -146,6 +146,7 @@ rsc
 saft
 sakanashi
 samm
+sarif
 schemathesis
 semgrep
 seo

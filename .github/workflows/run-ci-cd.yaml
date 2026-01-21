@@ -196,7 +196,7 @@ jobs:
           --sarif-output semgrep-report.sarif \
           --timeout 300
 
-      - name: Upload HTML report
+      - name: Upload semgrep report
         uses: actions/upload-artifact@v4
         with:
           name: semgrep-report
