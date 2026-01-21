@@ -174,34 +174,34 @@ jobs:
     timeout-minutes: 5
 
   semgrep-scan:
-  name: Run Semgrep Scan
-  needs:
-    - check-frontend
-    - pre-commit
-    - spellcheck
-  permissions:
-    contents: read
-  runs-on: ubuntu-latest
-  container:
-    image: semgrep/semgrep
-  steps:
-    - name: Check out repository
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    name: Run Semgrep Scan
+    needs:
+      - check-frontend
+      - pre-commit
+      - spellcheck
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
 
-    - name: Run Semgrep scan
-      run: |
-        semgrep scan \
-          --config p/security-audit \
-          --fail-level MEDIUM \
-          --timeout 300 \
-          --html --output semgrep-report.html
+      - name: Run Semgrep scan
+        run: |
+          semgrep scan \
+            --config p/security-audit \
+            --fail-level MEDIUM \
+            --timeout 300 \
+            --html --output semgrep-report.html
 
-    - name: Upload HTML report
-      uses: actions/upload-artifact@v4
-      with:
-        name: semgrep-html
-        path: semgrep-report.html
-  timeout-minutes: 10
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-html
+          path: semgrep-report.html
+    timeout-minutes: 10
 # 
   # run-backend-tests:
   #   name: Run backend tests
